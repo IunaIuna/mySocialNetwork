@@ -1,0 +1,10 @@
+body {
+    background-color: cornflowerblue;
+    heigth: 100vh;
+    width: auto;
+}
+
+#ape {
+    height: 70px;
+    width: auto;
+}
