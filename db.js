@@ -24,3 +24,10 @@ exports.addUserForReset = function(email, secret_code) {
         secret_code
     ]);
 };
+
+exports.checkSecretCode = function(secretCode) {
+    return db.query(
+        "SELECT secret_code FROM reset WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes' AND secret_code = $1",
+        [secretCode]
+    );
+};

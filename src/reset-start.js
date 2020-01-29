@@ -1,6 +1,7 @@
 import React from "react";
 import axiosCopy from "./axios";
 import { Link } from "react-router-dom";
+import ResetVerify from "./reset-verify";
 
 export default class ResetStart extends React.Component {
     constructor(props) {
@@ -48,7 +49,11 @@ export default class ResetStart extends React.Component {
                 Please enter the email address with which you have registered
                 <br />
                 <br />
-                <input name="email" onChange={e => this.handleChange(e)} />
+                <input
+                    name="email"
+                    placeholder="email"
+                    onChange={e => this.handleChange(e)}
+                />
                 <br />
                 <br />
                 <button onClick={() => this.submit()}>Submit</button>

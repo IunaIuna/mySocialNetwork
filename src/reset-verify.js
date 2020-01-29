@@ -47,6 +47,7 @@ export default class ResetVerify extends React.Component {
                 Please enter the code you received
                 <br />
                 <br />
+                Please enter a new password
                 <input
                     name="secret_code"
                     onChange={e => this.handleChange(e)}

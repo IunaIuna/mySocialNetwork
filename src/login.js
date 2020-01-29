@@ -1,7 +1,6 @@
 import React from "react";
 import axiosCopy from "./axios";
 import { Link } from "react-router-dom";
-import ResetStart from "./reset-start";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -25,6 +24,7 @@ export default class Login extends React.Component {
             })
             .then(({ data }) => {
                 if (data.success) {
+                    console.log("login successful", data);
                     //it worked
                     location.replace("/");
                 } else {
@@ -42,9 +42,14 @@ export default class Login extends React.Component {
         return (
             <div>
                 {this.state.error && <div className="error">Oops!</div>}
-                <input name="email" onChange={e => this.handleChange(e)} />
+                <input
+                    placeholder="email"
+                    name="email"
+                    onChange={e => this.handleChange(e)}
+                />
                 <br />
                 <input
+                    placeholder="password"
                     name="password"
                     type="password"
                     onChange={e => this.handleChange(e)}

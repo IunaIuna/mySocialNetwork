@@ -87,13 +87,13 @@ app.post("/login", (req, res) => {
     console.log("Mail: ", req.body.email);
     db.getInfoByEmail(req.body.email)
         .then(hashedPasswordAndIdFromDB => {
-            console.log("hashedPasswordFromDB", hashedPasswordAndIdFromDB);
+            console.log("hashedPasswordAndIdFromDB", hashedPasswordAndIdFromDB);
 
-            if (typeof hashedPasswordAndIdFromDB === "undefined") {
+            if (typeof hashedPasswordAndIdFromDB.rows[0] === "undefined") {
                 console.log("mail address does not exist");
                 res.json({ success: false });
             } else {
-                let hashedPassword = hashedPasswordAndIdFromDB.password;
+                let hashedPassword = hashedPasswordAndIdFromDB.rows[0].password;
                 // console.log("password: ", password);
                 //compare() hashes automatically the typedin password
                 bcrypt
@@ -106,12 +106,13 @@ app.post("/login", (req, res) => {
                         } else {
                             console.log("Password does not match");
                         }
-                    });
+                    })
+                    .catch(err => console.log("err in bcrypt", err));
             }
         })
         .catch(err => {
             console.log("error in Password Retrieval", err);
-            res.json({ success: false });
+            // res.json({ success: false });
         });
 });
 
