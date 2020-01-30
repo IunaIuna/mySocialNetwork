@@ -12,7 +12,7 @@ export default class Registration extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-        console.log("this.state in handleChange - registration", this.state);
+        // console.log("this.state in handleChange - registration", this.state);
     }
     submit() {
         console.log(
@@ -51,7 +51,7 @@ export default class Registration extends React.Component {
         //I want to show this div when this.state.error is true
         //this.state.error => undefined
         //otherwise: It will show na error
-        console.log("this input form");
+        console.log("this input form - registration.js");
         return (
             <div>
                 {this.state.error && <div className="error">Oops!</div>}

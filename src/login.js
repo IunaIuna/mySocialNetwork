@@ -23,12 +23,14 @@ export default class Login extends React.Component {
                 password: this.state.password
             })
             .then(({ data }) => {
+                console.log("resp from login ", data);
                 if (data.success) {
                     console.log("login successful", data);
                     //it worked
                     location.replace("/");
                 } else {
                     //failure!
+                    console.log("failure. password wrong");
                     this.setState({
                         error: true
                     });
@@ -41,7 +43,11 @@ export default class Login extends React.Component {
         //otherwise: It will show na error
         return (
             <div>
-                {this.state.error && <div className="error">Oops!</div>}
+                {this.state.error && (
+                    <div className="error">
+                        Something went wrong. Please try again!
+                    </div>
+                )}
                 <input
                     placeholder="email"
                     name="email"
@@ -61,7 +67,7 @@ export default class Login extends React.Component {
                 <br />
                 Not a member yet? <Link to="/">Register</Link>
                 <br />
-                Forgot your password? <Link to="/reset/start">Reset here</Link>
+                Forgot your password? <Link to="/reset">Reset here</Link>
                 <br />
             </div>
         );

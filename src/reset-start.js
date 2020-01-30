@@ -26,10 +26,9 @@ export default class ResetStart extends React.Component {
                 email: this.state.email
             })
             .then(({ data }) => {
-                console.log("it worked - resetStart");
                 if (data.success) {
                     //it worked
-                    location.replace("/reset/verify");
+                    console.log("it worked - resetStart");
                 } else {
                     //failure!
                     this.setState({
@@ -56,7 +55,9 @@ export default class ResetStart extends React.Component {
                 />
                 <br />
                 <br />
-                <button onClick={() => this.submit()}>Submit</button>
+                <Link to="/reset/verify">
+                    <button onClick={() => this.submit()}>Submit</button>
+                </Link>
                 <br />
             </div>
         );

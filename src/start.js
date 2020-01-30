@@ -8,6 +8,6 @@ let elem;
 if (location.pathname == "/welcome") {
     elem = <Welcome />;
 } else {
-    elem = <img src="/monkey.svg" />;
+    elem = <img id="ape" src="monkey.svg" />;
 }
 ReactDOM.render(elem, document.querySelector("main"));

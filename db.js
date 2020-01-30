@@ -13,21 +13,30 @@ exports.registerUser = function(first, last, email, password) {
 
 exports.getInfoByEmail = function(email) {
     return db.query("SELECT password, id FROM users WHERE email = $1", [email]);
-    // .then(pass => {
-    //     return pass.rows[0];
-    // });
 };
 
 exports.addUserForReset = function(email, secret_code) {
-    return db.query("INSERT INTO reset (email, secret_code) VALUES ($1, $2)", [
-        email,
-        secret_code
-    ]);
+    console.log("email, secret_code in db.js", email, secret_code);
+    return db.query(
+        `INSERT INTO reset (email, secret_code) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET secret_code = $2, created_at = now() RETURNING id`,
+        [email, secret_code]
+    );
 };
 
-exports.checkSecretCode = function(secretCode) {
-    return db.query(
-        "SELECT secret_code FROM reset WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes' AND secret_code = $1",
-        [secretCode]
-    );
+exports.pickSecretCodeByMail = function(email) {
+    return db
+        .query(
+            "SELECT secret_code FROM reset WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes' AND email = $1",
+            [email]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
+
+exports.updatePassword = function(password, email) {
+    return db.query("UPDATE users SET password = $1 WHERE email= $2", [
+        password,
+        email
+    ]);
 };

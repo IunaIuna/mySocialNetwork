@@ -9,6 +9,7 @@ const bcrypt = require("./bcrypt");
 const db = require("./db");
 const csurf = require("csurf");
 const ses = require("./ses");
+// const s3 = require("./s3");
 app.use(compression());
 
 app.use(express.static("./public"));
@@ -101,7 +102,12 @@ app.post("/login", (req, res) => {
                     .then(isPasswordMatching => {
                         console.log(isPasswordMatching);
                         if (isPasswordMatching) {
-                            req.session.userId = hashedPasswordAndIdFromDB.id;
+                            console.log(
+                                "hashedPasswordAndIdFromDB***",
+                                hashedPasswordAndIdFromDB
+                            );
+                            req.session.userId =
+                                hashedPasswordAndIdFromDB.rows[0].id;
                             res.json({ success: true });
                         } else {
                             console.log("Password does not match");
@@ -116,13 +122,14 @@ app.post("/login", (req, res) => {
         });
 });
 
-//RESET PASSWORD
-//PART1
+//RESET PASSWORD//////////////////////////
+
+//PART1: reset-start
 app.post("/reset/start", (req, res) => {
     //routes: verify that mail exists
-    console.log("POST request to /rest/start happened");
+    console.log("POST request to /reset happened");
     db.getInfoByEmail(req.body.email).then(result => {
-        console.log("result of getInfoByMail", result.rows[0]);
+        console.log("result of getInfoByMail -in resetStart", result.rows[0]);
 
         //if there is an id.....
         if (result.rows[0] != undefined) {
@@ -130,6 +137,8 @@ app.post("/reset/start", (req, res) => {
             const secret_Code = cryptoRandomString({
                 length: 6
             });
+            console.log("email exists");
+            console.log("mail and code", req.body.email, secret_Code);
             db.addUserForReset(req.body.email, secret_Code);
             ses.sendEmail(
                 "internal.gondola@spicedling.email",
@@ -143,11 +152,51 @@ app.post("/reset/start", (req, res) => {
         }
     });
 });
+
+//PART2: RESET-VERIFY
+app.post("/reset/verify", (req, res) => {
+    //routes: verify that mail exists
+    console.log("req.body.email: ", req.body.email);
+    console.log("POST request to /reset/verify happened");
+
+    db.pickSecretCodeByMail(req.body.email).then(secret_code => {
+        console.log(
+            "result of pickSecretCodeByMail = secret_code ",
+            secret_code
+        );
+        console.log(
+            "compare secret_code",
+            req.body.secret_code,
+            secret_code[0].secret_code
+        );
+        if (req.body.secret_code === secret_code[0].secret_code) {
+            console.log("passwords match");
+            bcrypt.hash(req.body.newPassword).then(hashedPassword => {
+                console.log("hashedPassword", hashedPassword);
+                db.updatePassword(hashedPassword, req.body.email).then(() =>
+                    res.json({ success: true })
+                );
+            });
+        } else {
+            console.log("The secret code is wrong.");
+        }
+    });
+});
+
+app.get("/user", function(req, res) {
+    db.getUser().then(({ rows }) => {
+        res.json({
+            first: rows[0].first,
+            imageUrl: rows[0].image || "default.jpg"
+        });
+    });
+});
 // ////////////////////////////////////
 app.get("*", function(req, res) {
     if (!req.session.userId) {
         res.redirect("/welcome");
     } else {
+        //youre logged in
         res.sendFile(__dirname + "/index.html");
     }
 });

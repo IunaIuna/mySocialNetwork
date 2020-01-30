@@ -1,6 +1,5 @@
 import React from "react";
 import axiosCopy from "./axios";
-import { Link } from "react-router-dom";
 
 export default class ResetVerify extends React.Component {
     constructor(props) {
@@ -22,12 +21,15 @@ export default class ResetVerify extends React.Component {
         //axios.post('/register', this.state);
         axiosCopy
             .post("/reset/verify", {
-                secret_code: this.state.secret_code
+                secret_code: this.state.secret_code,
+                email: this.state.email,
+                password: this.state.password
             })
             .then(({ data }) => {
                 if (data.success) {
                     //it worked
-                    location.replace("/reset/success");
+                    console.log("it worked - resetverify");
+                    // location.replace("/reset/success");
                 } else {
                     //failure!
                     this.setState({
@@ -44,16 +46,14 @@ export default class ResetVerify extends React.Component {
             <div>
                 {this.state.error && <div className="error">Oops!</div>}
                 <h1>Reset Password</h1>
-                Please enter the code you received
-                <br />
-                <br />
-                Please enter a new password
+                <p>Please enter the code you received</p>
                 <input
                     name="secret_code"
                     onChange={e => this.handleChange(e)}
                 />
                 <br />
                 <br />
+                <p>Please enter a new password</p>
                 <input
                     name="newPassword"
                     onChange={e => this.handleChange(e)}
