@@ -7,4 +7,17 @@ body {
 #ape {
     height: 70px;
     width: auto;
+    top: 40px;
+}
+
+.profilePic {
+    height: 100px;
+    width: auto;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+}
+
+.float {
+    float: right;
 }

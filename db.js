@@ -40,3 +40,19 @@ exports.updatePassword = function(password, email) {
         email
     ]);
 };
+
+exports.getUserInfo = function(id) {
+    return db.query("SELECT * FROM users WHERE id = $1", [id]);
+};
+
+exports.updateProfilePic = function(id, imageUrl) {
+    return db
+        .query(
+            "UPDATE users SET imageurl = $2 WHERE id = $1 RETURNING imageurl",
+            [id, imageUrl]
+        )
+        .then(({ rows }) => {
+            console.log("db.js - rows", rows[0].imageurl);
+            return rows[0].imageurl;
+        });
+};

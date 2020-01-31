@@ -1,25 +1,28 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 
 const conf = {
-    entry: ["@babel/polyfill", __dirname + '/src/start.js'],
+    entry: ["@babel/polyfill", __dirname + "/src/start.js"],
     output: {
         path: __dirname,
-        filename: 'bundle.js'
+        filename: "bundle.js"
     },
     performance: {
         hints: false
     },
-    mode: require.main == module ? 'production' : 'development',
-    optimization: require.main == module ? {
-        minimize: true
-    } : {},
+    mode: require.main == module ? "production" : "development",
+    optimization:
+        require.main == module
+            ? {
+                minimize: true
+            }
+            : {},
     module: {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loader: "babel-loader",
                 query: {
-                    presets: ['@babel/preset-react', '@babel/preset-env']
+                    presets: ["@babel/preset-react", "@babel/preset-env"]
                 }
             }
         ]
@@ -36,10 +39,11 @@ if (require.main == module) {
         }
     });
 } else {
-    module.exports = require('webpack-dev-middleware')(webpack(conf), {
+    module.exports = require("webpack-dev-middleware")(webpack(conf), {
         watchOptions: {
             aggregateTimeout: 300
         },
-        publicPath: '/'
+        lazy: true,
+        publicPath: "/"
     });
 }

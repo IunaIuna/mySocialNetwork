@@ -1,5 +1,8 @@
+//MEMBER AREA: After the login
 import React from "react";
-import axios from "./axios";
+import axiosCopy from "./axios";
+import ProfilePic from "./profilePic";
+import Uploader from "./uploader";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -7,7 +10,10 @@ export default class App extends React.Component {
         this.state = {};
     }
     componentDidMount() {
-        axios.get("/user").then(({ data }) => this.setState(data));
+        axiosCopy.get("/user").then(({ data }) => {
+            console.log("data from app-setState", data);
+            this.setState(data);
+        });
     }
     render() {
         if (!this.state.id) {
@@ -15,7 +21,7 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <img src="/logo.gif" alt="Logo" />
+                <img id="ape" src="monkey.svg" alt="Logo" />
                 <ProfilePic
                     clickHandler={() =>
                         this.setState({ uploaderIsVisible: true })
@@ -26,7 +32,12 @@ export default class App extends React.Component {
                 />
                 {this.state.uploaderIsVisible && (
                     <Uploader
-                        setImageUrl={imageUrl => this.setState({ imageUrl })}
+                        setImageUrl={imageUrl =>
+                            this.setState({
+                                imageUrl: imageUrl,
+                                uploaderIsVisible: false
+                            })
+                        }
                     />
                 )}
             </div>

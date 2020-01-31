@@ -9,8 +9,42 @@ const bcrypt = require("./bcrypt");
 const db = require("./db");
 const csurf = require("csurf");
 const ses = require("./ses");
-// const s3 = require("./s3");
+const aws = require("aws-sdk");
+const s3 = require("./s3");
+const { s3Url } = require("./config");
+
+app.use(express.static("./public"));
+
+app.use(express.json());
 app.use(compression());
+
+///////BOILERPLATE CODE FOR IMAGE UPLOAD///////////////
+
+// npm packages (core modules):
+//multer: stores the data
+//uidSafe: creates a random name of 24 characters long
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
+
+const diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
+/////////////////////////////////////////////////////////
 
 app.use(express.static("./public"));
 
@@ -184,12 +218,36 @@ app.post("/reset/verify", (req, res) => {
 });
 
 app.get("/user", function(req, res) {
-    db.getUser().then(({ rows }) => {
+    console.log("GET request to /user happened");
+    db.getUserInfo(req.session.userId).then(({ rows }) => {
+        console.log("rows from getUserInfo: ", rows);
         res.json({
             first: rows[0].first,
-            imageUrl: rows[0].image || "default.jpg"
+            last: rows[0].last,
+            id: rows[0].id,
+            imageUrl: rows[0].image
         });
     });
+});
+
+app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
+    console.log("POST request to /upload happened");
+    console.log("file: ", req.file);
+    console.log("input: ", req.body);
+
+    if (req.file) {
+        const imageUrl = s3Url + req.file.filename;
+        console.log("imageUrl: ", imageUrl);
+        db.updateProfilePic(req.session.userId, imageUrl).then(result => {
+            console.log("ImageURL: WHAT IS IT?", result);
+            res.json({ result: result });
+        });
+    } else {
+        res.sendStatus(500);
+        res.json({
+            success: false
+        });
+    }
 });
 // ////////////////////////////////////
 app.get("*", function(req, res) {
