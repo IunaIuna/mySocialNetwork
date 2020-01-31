@@ -225,7 +225,7 @@ app.get("/user", function(req, res) {
             first: rows[0].first,
             last: rows[0].last,
             id: rows[0].id,
-            imageUrl: rows[0].image
+            imageUrl: rows[0].imageurl
         });
     });
 });
