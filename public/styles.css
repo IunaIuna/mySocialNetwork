@@ -18,6 +18,15 @@ body {
     right: 40px;
 }
 
+.bigProfilePic {
+    height: 300px;
+    width: auto;
+}
+
 .float {
     float: right;
+}
+
+.uploader {
+    background-color: hotpink;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import axiosCopy from "./axios";
+console.log("Uploader here, hello!");
 
 export default class Uploader extends React.Component {
     constructor(props) {
@@ -21,7 +22,10 @@ export default class Uploader extends React.Component {
             .post("/upload", formData)
             .then(function(res) {
                 //if app.post(req.file) was successful: you will see it in the browser
-                console.log("resp from POST /upload: ", res);
+                console.log(
+                    "res.data.result from POST /upload: ",
+                    res.data.result
+                );
                 //We named it "result" in the upload route
                 me.props.setImageUrl(res.data.result);
             })
@@ -32,15 +36,15 @@ export default class Uploader extends React.Component {
     render() {
         return (
             <div>
-                Hello! This is the uploader!
                 <input
+                    className="uploader"
                     type="file"
                     name="file"
                     id="file"
                     onChange={e => this.handleChange(e)}
                     image="image/*"
                 />
-                <button onClick={e => this.submit()}>submit</button>
+                <button onClick={() => this.submit()}>submit</button>
             </div>
         );
     }

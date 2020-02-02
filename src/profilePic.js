@@ -6,10 +6,10 @@ export default function ProfilePic(props) {
         imageUrl = "default.png";
     }
     return (
-        <div className="float">
+        <div>
             <img
-                className="profilePic"
-                onClick={props.clickHandler}
+                className={props.className}
+                onClick={props.clickProfilePic}
                 src={imageUrl}
                 alt={props.first + "" + props.last}
             />

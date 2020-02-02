@@ -1,7 +1,7 @@
 //MEMBER AREA: After the login
 import React from "react";
 import axiosCopy from "./axios";
-import ProfilePic from "./profilePic";
+import Profile from "./profile";
 import Uploader from "./uploader";
 
 export default class App extends React.Component {
@@ -15,6 +15,7 @@ export default class App extends React.Component {
             this.setState(data);
         });
     }
+    //As long as it is loading and there is no id found yet, show: "Loading"
     render() {
         if (!this.state.id) {
             return <img src="progressbar.gif" alt="Loading..." />;
@@ -22,13 +23,15 @@ export default class App extends React.Component {
         return (
             <div>
                 <img id="ape" src="monkey.svg" alt="Logo" />
-                <ProfilePic
-                    clickHandler={() =>
+                <Profile
+                    clickProfile={() =>
                         this.setState({ uploaderIsVisible: true })
                     }
                     imageUrl={this.state.imageUrl}
                     first={this.state.first}
                     last={this.state.last}
+                    bioText={this.state.bio}
+                    setBio={bioText => this.setState({ bio: bioText })}
                 />
                 {this.state.uploaderIsVisible && (
                     <Uploader
@@ -44,5 +47,7 @@ export default class App extends React.Component {
         );
     }
 }
+
+//this.state.first -> In profile: it is props.first*/
 
 // Only App can change Apps state, so we need to write a function for Upload in order to change its state. So ProfilePic can call the function that APP can execute

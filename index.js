@@ -225,7 +225,8 @@ app.get("/user", function(req, res) {
             first: rows[0].first,
             last: rows[0].last,
             id: rows[0].id,
-            imageUrl: rows[0].imageurl
+            imageUrl: rows[0].imageurl,
+            bio: rows[0].bio
         });
     });
 });
@@ -248,6 +249,14 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
             success: false
         });
     }
+});
+
+app.post("/save-bio", function(req, res) {
+    console.log("POST request to /save-bio happened", req.body);
+    db.updateBio(req.body.bioText, req.session.userId).then(rows => {
+        console.log("rows from db.updateBio ", rows);
+        res.json({ rows: rows });
+    });
 });
 // ////////////////////////////////////
 app.get("*", function(req, res) {
