@@ -20,6 +20,7 @@ export default class BioEditor extends React.Component {
                     isInEditingMode: false,
                     bioText: res.data.rows[0].bio
                 });
+                // Here setBio is called and will run in App
                 me.props.setBio(res.data.rows[0].bio);
             })
             .catch(function(err) {

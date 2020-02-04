@@ -1,8 +1,10 @@
 //MEMBER AREA: After the login
 import React from "react";
 import axiosCopy from "./axios";
+import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./profile";
 import Uploader from "./uploader";
+import OtherProfile from "./otherProfile";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -22,27 +24,42 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <img id="ape" src="monkey.svg" alt="Logo" />
-                <Profile
-                    clickProfile={() =>
-                        this.setState({ uploaderIsVisible: true })
-                    }
-                    imageUrl={this.state.imageUrl}
-                    first={this.state.first}
-                    last={this.state.last}
-                    bioText={this.state.bio}
-                    setBio={bioText => this.setState({ bio: bioText })}
-                />
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        setImageUrl={imageUrl =>
-                            this.setState({
-                                imageUrl: imageUrl,
-                                uploaderIsVisible: false
-                            })
-                        }
+                <img id="ape" src="/monkey.svg" alt="Logo" />
+                <BrowserRouter>
+                    <div>
+                        {this.state.uploaderIsVisible && (
+                            <Uploader
+                                setImageUrl={imageUrl =>
+                                    this.setState({
+                                        imageUrl: imageUrl,
+                                        uploaderIsVisible: false
+                                    })
+                                }
+                            />
+                        )}
+                    </div>
+                    <Route path="/user/:id" component={OtherProfile} />
+                    <Route
+                        exact
+                        path="/"
+                        render={props => (
+                            <Profile
+                                clickProfile={() =>
+                                    this.setState({
+                                        uploaderIsVisible: true
+                                    })
+                                }
+                                imageUrl={this.state.imageUrl}
+                                first={this.state.first}
+                                last={this.state.last}
+                                bioText={this.state.bio}
+                                setBio={bioText =>
+                                    this.setState({ bio: bioText })
+                                }
+                            />
+                        )}
                     />
-                )}
+                </BrowserRouter>
             </div>
         );
     }

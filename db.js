@@ -42,7 +42,12 @@ exports.updatePassword = function(password, email) {
 };
 
 exports.getUserInfo = function(id) {
-    return db.query("SELECT * FROM users WHERE id = $1", [id]);
+    return db
+        .query("SELECT * FROM users WHERE id = $1", [id])
+        .then(({ rows }) => {
+            console.log("getUserInfo rows", rows);
+            return rows;
+        });
 };
 
 exports.updateProfilePic = function(id, imageUrl) {

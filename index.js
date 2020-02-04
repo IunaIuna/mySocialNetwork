@@ -219,7 +219,7 @@ app.post("/reset/verify", (req, res) => {
 
 app.get("/user", function(req, res) {
     console.log("GET request to /user happened");
-    db.getUserInfo(req.session.userId).then(({ rows }) => {
+    db.getUserInfo(req.session.userId).then(rows => {
         console.log("rows from getUserInfo: ", rows);
         res.json({
             first: rows[0].first,
@@ -256,6 +256,27 @@ app.post("/save-bio", function(req, res) {
     db.updateBio(req.body.bioText, req.session.userId).then(rows => {
         console.log("rows from db.updateBio ", rows);
         res.json({ rows: rows });
+    });
+});
+//Naming convention: routes starting with api says: we only get info from the ///server
+app.get("/api/user/:id", (req, res) => {
+    console.log("req.params.id", req.params.id);
+    db.getUserInfo(req.params.id).then(rows => {
+        console.log("rows[0]: ", rows[0]);
+        rows[0].password = "you wish";
+        console.log("rows[0]: ", rows[0]);
+        if (rows[0].length == 0) {
+            res.json({ success: false });
+        } else {
+            res.json({
+                id: rows[0].id,
+                first: rows[0].first,
+                last: rows[0].last,
+                imageUrl: rows[0].imageurl,
+                bio: rows[0].bio,
+                currentId: req.session.userId
+            });
+        }
     });
 });
 // ////////////////////////////////////
