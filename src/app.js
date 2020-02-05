@@ -5,6 +5,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./profile";
 import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
+import FindPeople from "./findPeople";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -39,6 +40,7 @@ export default class App extends React.Component {
                         )}
                     </div>
                     <Route path="/user/:id" component={OtherProfile} />
+                    <Route path="/findPeople" component={FindPeople} />
                     <Route
                         exact
                         path="/"

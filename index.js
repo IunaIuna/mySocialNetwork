@@ -279,6 +279,25 @@ app.get("/api/user/:id", (req, res) => {
         }
     });
 });
+
+app.get("/users", (req, res) => {
+    console.log("GET request to /users happened");
+    db.getRecentUsers().then(rows => {
+        console.log("rows from db.getRecentUsers: ", rows);
+        res.json({
+            rows: rows
+        });
+    });
+});
+
+app.post("/search", (req, res) => {
+    console.log("POST request to /search");
+    db.findMatchingUser(req.body.val).then(rows => {
+        console.log("rows from db.findMatchingUser", rows);
+        res.json({ rows: rows });
+    });
+});
+
 // ////////////////////////////////////
 app.get("*", function(req, res) {
     if (!req.session.userId) {

@@ -30,3 +30,12 @@ body {
 .uploader {
     background-color: hotpink;
 }
+
+.recentUser {
+    height: 100px;
+    width: auto;
+}
+
+.ulStyle {
+    list-style: none;
+}

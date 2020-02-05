@@ -73,3 +73,21 @@ exports.updateBio = function(bio, id) {
             return rows;
         });
 };
+
+exports.getRecentUsers = function() {
+    return db
+        .query(
+            "SELECT id, first, last, imageurl FROM users ORDER BY id DESC LIMIT 3"
+        )
+        .then(({ rows }) => {
+            console.log("db.js updateBio - rows", rows);
+            return rows;
+        });
+};
+
+exports.findMatchingUser = function(val) {
+    return db.query(
+        "SELECT * FROM users WHERE first ILIKE $1 OR last ILIKE $1 OR CONCAT(first, ' ', last) ILIKE $1 ORDER BY id LIMIT 4",
+        [val + "%"]
+    );
+};
