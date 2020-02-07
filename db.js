@@ -118,14 +118,32 @@ exports.makeFriendRequest = function(sender_id, recipient_id) {
 
 exports.acceptFriendRequest = function(sender_id, recipient_id) {
     return db.query(
-        `UPDATE friendships SET accepted = true WHERE (sender_id = $1 AND recipient_id = $2)`,
+        `UPDATE friendships SET accepted = true WHERE (sender_id = $1 AND recipient_id = $2) OR (recipient_id = $1 AND sender_id = $2)`,
         [sender_id, recipient_id]
     );
 };
 
 exports.endFriendship = function(sender_id, recipient_id) {
     return db.query(
-        `DELETE * FROM friendships WHERE sender_id = $1 AND recipient_id = $2`,
+        `DELETE FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`,
         [sender_id, recipient_id]
     );
+};
+
+exports.receiveFriendsAndWannabes = function(val) {
+    return db
+        .query(
+            `SELECT users.id, first, last, imageurl, accepted
+    FROM friendships
+    JOIN users
+    ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
+            [val]
+        )
+        .then(({ rows }) => {
+            // console.log("in db.js: friendsWannabes", rows);
+            // console.log("#################################");
+            return rows;
+        });
 };

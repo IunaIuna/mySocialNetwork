@@ -320,7 +320,17 @@ app.post("/end-friendship/:id", (req, res) => {
         });
     });
 });
-//////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////
+app.get("/friends-wannabes", (req, res) => {
+    db.receiveFriendsAndWannabes(req.session.userId).then(rows => {
+        console.log("rows from db.friends-wannabes", rows);
+        res.json({
+            rows: rows
+        });
+    });
+});
+
 app.get("/users", (req, res) => {
     console.log("GET request to /users happened");
     db.getRecentUsers().then(rows => {

@@ -56,9 +56,7 @@ export default function friendButton(props) {
                         setButtonText("Cancel friend request");
                     }
                 });
-        }
-
-        if (buttonText == "Accept friend request") {
+        } else if (buttonText == "Accept friend request") {
             axiosCopy
                 .post("/accept-friend-request/" + props.otherUserId)
                 .then(({ data }) => {
@@ -67,18 +65,20 @@ export default function friendButton(props) {
                         setButtonText("Unfriend");
                     }
                 });
+        } else if (
+            buttonText == "Cancel friend request" ||
+            buttonText == "Unfriend"
+        ) {
+            axiosCopy
+                .post("/end-friendship/" + props.otherUserId)
+                .then(({ data }) => {
+                    console.log("data from /end-friendship/", data);
+                    if (data.success) {
+                        setButtonText("Make friend request");
+                    }
+                });
         }
     };
-    // if (buttonText == "Cancel friend request" || "Unfriend") {
-    //     axiosCopy
-    //         .post("/end-friendship/" + props.otherUserId)
-    //         .then(({ data }) => {
-    //             console.log("data from /end-friendship/", data);
-    //             if (data.success) {
-    //                 setButtonText("Make friend request");
-    //             }
-    //         });
-    // }
 
     return (
         <div>
