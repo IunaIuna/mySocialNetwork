@@ -1,6 +1,7 @@
 import React from "react";
 import ProfilePic from "./profilePic";
 import BioEditor from "./bioEditor";
+import FriendButton from "./friendButton";
 
 export default function Profile(props) {
     console.log("profile.js here, hello");

@@ -91,3 +91,41 @@ exports.findMatchingUser = function(val) {
         [val + "%"]
     );
 };
+////////FRIENDS//////////////////////////////////////////
+exports.checkFriendsStatus = function(sender_id, recipient_id) {
+    return db
+        .query(
+            `SELECT * FROM friendships
+WHERE (recipient_id = $1 AND sender_id = $2)
+OR (recipient_id = $2 AND sender_id = $1)`,
+            [sender_id, recipient_id]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
+
+exports.makeFriendRequest = function(sender_id, recipient_id) {
+    return db
+        .query(
+            `INSERT INTO friendships (sender_id, recipient_id) VALUES ($1, $2) RETURNING *`,
+            [sender_id, recipient_id]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
+
+exports.acceptFriendRequest = function(sender_id, recipient_id) {
+    return db.query(
+        `UPDATE friendships SET accepted = true WHERE (sender_id = $1 AND recipient_id = $2)`,
+        [sender_id, recipient_id]
+    );
+};
+
+exports.endFriendship = function(sender_id, recipient_id) {
+    return db.query(
+        `DELETE * FROM friendships WHERE sender_id = $1 AND recipient_id = $2`,
+        [sender_id, recipient_id]
+    );
+};

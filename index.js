@@ -280,6 +280,47 @@ app.get("/api/user/:id", (req, res) => {
     });
 });
 
+///////////////FRIENDBUTTON START/////////////////////////////////
+app.get("/friends-status/:id", (req, res) => {
+    console.log("GET request to /friends-status happened");
+    db.checkFriendsStatus(req.session.userId, req.params.id).then(rows => {
+        console.log(rows);
+        res.json({
+            rows: rows
+        });
+    });
+});
+
+app.post("/make-friend-request/:id", (req, res) => {
+    console.log("POST request to /make-friend-rquest/ happened");
+    db.makeFriendRequest(req.session.userId, req.params.id).then(rows => {
+        console.log("rows from db.makeFriendRequest", rows);
+        res.json({
+            rows: rows
+        });
+    });
+});
+
+app.post("/accept-friend-request/:id", (req, res) => {
+    console.log("POST request to /accept-friend-request/:id happened");
+    db.acceptFriendRequest(req.session.userId, req.params.id).then(rows => {
+        console.log("rows from db.acceptFriendRequest", rows);
+        res.json({
+            success: true
+        });
+    });
+});
+
+app.post("/end-friendship/:id", (req, res) => {
+    console.log("POST request to /end-friendship happened");
+    db.endFriendship(req.session.userId, req.params.id).then(rows => {
+        console.log("rows from db.endFriendship", rows);
+        res.json({
+            success: true
+        });
+    });
+});
+//////////////////////////////////////////////////////////
 app.get("/users", (req, res) => {
     console.log("GET request to /users happened");
     db.getRecentUsers().then(rows => {
