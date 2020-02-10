@@ -7,22 +7,34 @@ export default function reducer(state = {}, action) {
         console.log(action.friends);
         state = {
             ...state,
-            friends: action.friends
+            friendsAndWannabes: action.friendsAndWannabes
         };
-        // } else if (action.type == "ACCEPT_FRIEND_REQUEST") {
-        //     state = {
-        //         ...state,
-        //         friendsWannabes: "yoo"
-        //     };
-        // } else if (action.type == "UNFRIEND") {
-        //     state = {
-        //         ...state,
-        //         friendsWannabes: "yoo"
-        //     };
-        // }
+        console.log("state for RECEIVE_FRIENS_WANNABES", state);
+    } else if (action.type == "ACCEPT_FRIEND_REQUEST") {
+        state = {
+            ...state,
+            friendsAndWannabes: state.friendsAndWannabes.map(user => {
+                if (user.id != action.id) {
+                    return user;
+                } else {
+                    return {
+                        ...user,
+                        accepted: true
+                    };
+                }
+            })
+        };
+    } else if (action.type == "UNFRIEND") {
+        state = {
+            ...state,
+            friendsAndWannabes: state.friendsAndWannabes.filter(
+                user => user.id != action.id
+            )
+        };
     }
     return state;
 }
+
 //immutably
 //map - good for changing items in an array
 //filter - removes an item(s) from an array

@@ -8,26 +8,24 @@ export async function receiveFriendsAndWannabes() {
     console.log("data from /friends-wannabes", data);
     return {
         type: "RECEIVE_FRIENDS_WANNABES",
-        friends: data.rows
+        friendsAndWannabes: data.rows
     };
 }
 
-// export function acceptFriendRequest(users.id) {
-//     axiosCopy.post("/accept-friend-request/" + users.id).then(({ data }) => {
-//         console.log("actions: data from /acceptFriendRequest", data);
-//         return {
-//             type: "ACCEPT_FRIEND_REQUEST",
-//             friends: data.rows
-//         };
-//     });
-// }
-//
-// export function unfriend(users.id) {
-//     axiosCopy.post("/end-friendship/" + users.id).then(({ data }) => {
-//         console.log("actions: data from /end-friendship", data);
-//         return {
-//             type: "RECEIVE_FRIENDS_WANNABES",
-//             users: data.rows
-//         };
-//     });
-// }
+export async function acceptFriendRequest(id) {
+    console.log("acceptFriendRequest");
+    await axiosCopy.post("/accept-friend-request/" + id);
+    return {
+        type: "ACCEPT_FRIEND_REQUEST",
+        id
+    };
+}
+
+export async function unfriend(id) {
+    console.log("req unfriend");
+    await axiosCopy.post("/end-friendship/" + id);
+    return {
+        type: "UNFRIEND",
+        id
+    };
+}
