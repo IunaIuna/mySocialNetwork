@@ -1,11 +1,12 @@
 body {
-    background-color: cornflowerblue;
-    heigth: 100vh;
+    background: #f9bea5;
     width: auto;
+    font-family: "Montserrat", sans-serif;
+    color: white;
 }
 
 #ape {
-    height: 70px;
+    height: 100px;
     width: auto;
     top: 40px;
 }
@@ -38,4 +39,16 @@ body {
 
 .ulStyle {
     list-style: none;
+}
+
+h1 {
+    font-family: "Sacramento", cursive;
+    color: white;
+}
+
+.chat-container {
+    height: 300px;
+    overflow-y: scroll;
+    border: radius 2px dimgrey;
+    background-color: grey;
 }

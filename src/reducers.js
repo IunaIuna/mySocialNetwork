@@ -31,6 +31,18 @@ export default function reducer(state = {}, action) {
                 user => user.id != action.id
             )
         };
+    } else if (action.type == "LAST_TEN_MESSAGES") {
+        console.log("LAST_TEN_MESSAGES = ", action);
+        state = {
+            ...state,
+            chatMessages: action.chatMessages
+        };
+    } else if (action.type == "ONE_MESSAGE") {
+        console.log("ONE_MESSAGE = ", action);
+        state = {
+            ...state,
+            chatMessages: state.chatMessages.concat([action.oneMsg])
+        };
     }
     return state;
 }

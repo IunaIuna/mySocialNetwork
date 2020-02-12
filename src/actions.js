@@ -29,3 +29,17 @@ export async function unfriend(id) {
         id
     };
 }
+
+export async function addSingleMessage(oneMsg) {
+    return {
+        type: "ONE_MESSAGE",
+        oneMsg
+    };
+}
+
+export async function tenLastMessages(msgs) {
+    return {
+        type: "LAST_TEN_MESSAGES",
+        chatMessages: msgs
+    };
+}

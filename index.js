@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const compression = require("compression");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 
+const compression = require("compression");
 const cookieSession = require("cookie-session");
 const bcrypt = require("./bcrypt");
 const db = require("./db");
@@ -54,12 +56,16 @@ app.use(express.static("./public"));
 //     })
 // );
 
-app.use(
-    cookieSession({
-        secret: "Three rabbits ran to the lobster.",
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: "Three rabbits ran to the lobster.",
+    maxAge: 1000 * 60 * 60 * 24 * 14
+});
+
+app.use(cookieSessionMiddleware);
+
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 //
 app.use(csurf());
 
@@ -358,7 +364,42 @@ app.get("*", function(req, res) {
         res.sendFile(__dirname + "/index.html");
     }
 });
-
-app.listen(8080, function() {
+///////////////////////////////////////////////////////////////////////////////
+server.listen(8080, function() {
     console.log("I'm listening on port 8080");
+});
+
+io.on("connection", function(socket) {
+    console.log("io.on");
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    const userId = socket.request.session.userId;
+
+    db.getLastTenChatMessages()
+        .then(rows => {
+            console.log("data from getLastTenChatMessages", rows);
+            //lets emit this message to everyone...
+            socket.emit("tenLastMessages", { data: rows });
+        })
+        .catch(err => console.log(err));
+
+    //Sending message to the server
+    socket.on("addSingleMessage", msg => {
+        console.log("addSingleMessage", msg);
+        db.insertChatMessages(userId, msg).then(rows => {
+            const latestMsg = rows[0];
+            db.getUserInfo(userId).then(userInfo => {
+                console.log("userInfo from db.getUserInfo", userInfo);
+                io.sockets.emit("addSingleMessage", {
+                    first: userInfo[0].first,
+                    last: userInfo[0].last,
+                    imageurl: userInfo[0].imageurl,
+                    message: latestMsg.message,
+                    created_at: latestMsg.created_at
+                });
+            });
+        });
+    });
 });

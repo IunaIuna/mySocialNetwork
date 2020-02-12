@@ -147,3 +147,25 @@ exports.receiveFriendsAndWannabes = function(val) {
             return rows;
         });
 };
+
+exports.insertChatMessages = function(sender_id, message) {
+    return db
+        .query(
+            "INSERT INTO chatMessages (sender_id, message) VALUES ($1, $2) RETURNING *",
+            [sender_id, message]
+        )
+        .then(({ rows }) => {
+            console.log("sth was inserted");
+            return rows;
+        });
+};
+
+exports.getLastTenChatMessages = function() {
+    return db
+        .query(
+            "SELECT first, last, imageUrl, sender_id, message FROM chatMessages JOIN users ON users.id = chatMessages.sender_id ORDER BY chatMessages.id DESC LIMIT 10"
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};

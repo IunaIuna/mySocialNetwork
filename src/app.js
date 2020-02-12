@@ -7,6 +7,7 @@ import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
 import FindPeople from "./findPeople";
 import Friends from "./friends";
+import { Chat } from "./chatencounter";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -26,7 +27,7 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <img id="ape" src="/monkey.svg" alt="Logo" />
+                <img id="ape" src="/logo.png" alt="Logo" />
                 <BrowserRouter>
                     <div>
                         {this.state.uploaderIsVisible && (
@@ -73,6 +74,7 @@ export default class App extends React.Component {
                         )}
                     />
                     <Route path="/friends" component={Friends} />
+                    <Route exact path="/chat" component={Chat} />
                 </BrowserRouter>
             </div>
         );

@@ -10,7 +10,7 @@ import Reset from "./reset";
 export default function Welcome() {
     return (
         <div>
-            <img id="ape" src="monkey.svg" />
+            <img id="ape" src="logo.png" />
 
             <h1>Welcome</h1>
             <HashRouter>
