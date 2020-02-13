@@ -5,6 +5,15 @@ body {
     color: white;
 }
 
+.welcomeTitle {
+    font-family: "Sacramento", cursive;
+    color: white;
+    font-size: 60px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
 #logo {
     height: 125px;
     width: auto;
@@ -77,38 +86,62 @@ ul {
 
 .chat {
     display: flex;
-    justify-content: justify-content;
-    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    width: 700px;
     padding-left: 30px;
 }
 .chatter {
     margin: 30px;
     padding: 20px;
     background-color: rgba(157, 129, 137, 0.2);
-    width: 500px;
     border-radius: 40px;
     padding-bottom: 40px;
+    display: flex;
+    max-width: 100%;
 }
 
-.timestampChat {
-    color: ;
+.chatText {
+    margin-left: 20px;
+    margin-top: 8px;
+    margin-right: 10px;
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+.chatHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .chat-container {
     height: 500px;
-    width: 700px;
+    width: 100%;
     overflow-y: scroll;
     background-color: #ffe5d9;
     color: #5d4e6d;
 }
 
 .textarea {
-    margin-left: 20px;
+    margin-top: 20px;
     border-radius: 10px;
+    width: 100%;
+    height: 100px;
+    display: block;
+    box-sizing: border-box;
+    font-size: 15px;
 }
 
 .message {
-    overflow-wrap: break-word;
+    /* overflow-wrap: break-word; */
+    word-break: break-all;
+}
+
+.chatAndOnline {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .chat-userpic {
@@ -119,9 +152,8 @@ ul {
     border-radius: 20px;
 }
 
-.textarea {
-    height: 100px;
-    width: 300px;
+#textarea {
+    width: 100%;
 }
 
 .navbar {
@@ -215,7 +247,7 @@ a:hover {
 
 .chatName {
     color: #5d4e6d;
-    font-size: 15px;
+    font-weight: bold;
 }
 
 .profile-card {
@@ -224,6 +256,20 @@ a:hover {
 
 .bioText {
     bottom: 0;
+}
+
+.onlineUser-container {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-left: 30px;
+}
+
+.friend-userpic-container {
+    margin: 10px;
 }
 
 .colors {

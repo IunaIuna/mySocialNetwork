@@ -38,54 +38,80 @@ export function Chat() {
                     Talk with people about your work, passions & dreams
                 </div>
             </center>
-            <div className="chat">
-                <div className="chat-container" ref={elemRef}>
-                    {chatMessages &&
-                        chatMessages.map((msg, index) => {
-                            return (
-                                <div key={index} className="chatter">
-                                    <div className="friend-userpic-container">
-                                        <img
-                                            className="chat-userpic"
-                                            src={msg.imageurl}
-                                        />
-                                        <div className="chatName">
-                                            {msg.first} {msg.last}
+            <div className="chatAndOnline">
+                <div className="chatAndTextarea">
+                    <div className="chat">
+                        <div className="chat-container" ref={elemRef}>
+                            {chatMessages &&
+                                chatMessages.map((msg, index) => {
+                                    const timestamp = msg.created_at.split(
+                                        /[- T :]/
+                                    );
+                                    const time =
+                                        timestamp[0] +
+                                        "-" +
+                                        timestamp[1] +
+                                        "-" +
+                                        timestamp[2] +
+                                        " " +
+                                        timestamp[3] +
+                                        ":" +
+                                        timestamp[4];
+                                    return (
+                                        <div key={index} className="chatter">
+                                            <div className="friend-userpic-container">
+                                                <img
+                                                    className="chat-userpic"
+                                                    src={msg.imageurl}
+                                                />
+                                            </div>
+                                            <div className="chatText">
+                                                <div className="chatHeader">
+                                                    <div className="chatName">
+                                                        {msg.first} {msg.last}
+                                                    </div>
+                                                    <div className="timestamp">
+                                                        {time}
+                                                    </div>
+                                                </div>
+
+                                                <div className="message">
+                                                    <p>{msg.message}</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="message">{msg.message}</div>
-                                    <div className="timestamp">
-                                        {msg.created_at}
+                                    );
+                                })}
+                        </div>
+                        <div id="textarea">
+                            <textarea
+                                className="textarea"
+                                placeholder="Add your message here"
+                                onKeyDown={keyCheck}
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div className="onlineUser-container">
+                    {onlineUsers &&
+                        onlineUsers.map((users, index) => {
+                            return (
+                                <div key={index} className="onlineUser">
+                                    <div className="friend-userpic-container">
+                                        <center>
+                                            <img
+                                                className="chat-userpic"
+                                                src={users.imageurl}
+                                            />
+                                            <h4 className="chatName">
+                                                {users.first} {users.last}
+                                            </h4>
+                                        </center>
                                     </div>
                                 </div>
                             );
                         })}
                 </div>
-                <div id="textarea">
-                    <textarea
-                        className="textarea"
-                        placeholder="Add your message here"
-                        onKeyDown={keyCheck}
-                    ></textarea>
-                </div>
-            </div>
-            <div className="onlineUser-container">
-                {onlineUsers &&
-                    onlineUsers.map((users, index) => {
-                        return (
-                            <div key={index} className="chatter">
-                                <div className="friend-userpic-container">
-                                    <img
-                                        className="chat-userpic"
-                                        src={users.imageurl}
-                                    />
-                                    <h4 className="chatName">
-                                        {users.first} {users.last}
-                                    </h4>
-                                </div>
-                            </div>
-                        );
-                    })}
             </div>
         </div>
     );
