@@ -328,6 +328,8 @@ app.post("/end-friendship/:id", (req, res) => {
 });
 
 /////////////////////////////////////////////////
+let onlineUsers = {};
+
 app.get("/friends-wannabes", (req, res) => {
     db.receiveFriendsAndWannabes(req.session.userId).then(rows => {
         console.log("rows from db.friends-wannabes", rows);
@@ -350,7 +352,7 @@ app.get("/users", (req, res) => {
 app.post("/search", (req, res) => {
     console.log("POST request to /search");
     db.findMatchingUser(req.body.val).then(rows => {
-        console.log("rows from db.findMatchingUser", rows);
+        // console.log("rows from db.findMatchingUser", rows);
         res.json({ rows: rows });
     });
 });
@@ -374,22 +376,26 @@ server.listen(8080, function() {
     console.log("I'm listening on port 8080");
 });
 
-let onlineUsers = {};
-
 io.on("connection", function(socket) {
-    console.log("io.on");
-
-    onlineUsers[socket.id] = socket.request.session.userId;
+    console.log("socket.id1", socket.id);
 
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
 
     const userId = socket.request.session.userId;
+    onlineUsers[socket.id] = userId;
+
+    let arrayOfOnlineUserIds = [...new Set(Object.values(onlineUsers))];
+
+    db.infoForOnlineUsers(arrayOfOnlineUserIds).then(rows => {
+        //the string you write here MUST be the same as in the sockets
+        io.sockets.emit("onlineUsers", rows);
+    });
 
     db.getLastTenChatMessages()
         .then(rows => {
-            console.log("data from getLastTenChatMessages", rows);
+            // console.log("data from getLastTenChatMessages", rows);
             //lets emit this message to everyone...
             socket.emit("tenLastMessages", { data: rows });
         })
@@ -401,7 +407,7 @@ io.on("connection", function(socket) {
         db.insertChatMessages(userId, msg).then(rows => {
             const latestMsg = rows[0];
             db.getUserInfo(userId).then(userInfo => {
-                console.log("userInfo from db.getUserInfo", userInfo);
+                // console.log("userInfo from db.getUserInfo", userInfo);
                 io.sockets.emit("addSingleMessage", {
                     first: userInfo[0].first,
                     last: userInfo[0].last,
@@ -415,5 +421,8 @@ io.on("connection", function(socket) {
 
     socket.on("disconnect", () => {
         delete onlineUsers[socket.id];
+        console.log("socket.id2", socket.id);
     });
+
+    console.log("onlineUsers", onlineUsers);
 });

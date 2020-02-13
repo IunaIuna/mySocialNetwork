@@ -43,3 +43,11 @@ export async function tenLastMessages(msgs) {
         chatMessages: msgs
     };
 }
+
+export async function onlineUsers(users) {
+    console.log("action.js - onlineUsers", users);
+    return {
+        type: "ONLINE_USERS",
+        onlineusers: users
+    };
+}

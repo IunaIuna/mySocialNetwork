@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 export function Chat() {
     const chatMessages = useSelector(state => state && state.chatMessages);
     console.log("chatMessages: ", chatMessages);
-    // const chatMessage = useSelector(state => state && state.chatMessage);
-    // console.log("chatMessage: ", chatMessage);
+
+    const onlineUsers = useSelector(state => state && state.onlineUsers);
+    console.log("onlineUsers: ", onlineUsers);
 
     const elemRef = useRef();
 
@@ -18,7 +19,7 @@ export function Chat() {
         console.log("client height, ", clientHeight);
         console.log("scroll height, ", scrollHeight);
         elemRef.current.scrollTop = scrollHeight - clientHeight;
-    }, [chatMessages]);
+    }, [chatMessages, onlineUsers]);
 
     const keyCheck = e => {
         if (e.key === "Enter") {
@@ -48,12 +49,14 @@ export function Chat() {
                                             className="chat-userpic"
                                             src={msg.imageurl}
                                         />
-                                        <h4>
+                                        <div className="chatName">
                                             {msg.first} {msg.last}
-                                        </h4>
+                                        </div>
                                     </div>
                                     <div className="message">{msg.message}</div>
-                                    <div>{msg.created_at}</div>
+                                    <div className="timestamp">
+                                        {msg.created_at}
+                                    </div>
                                 </div>
                             );
                         })}
@@ -65,6 +68,24 @@ export function Chat() {
                         onKeyDown={keyCheck}
                     ></textarea>
                 </div>
+            </div>
+            <div className="onlineUser-container">
+                {onlineUsers &&
+                    onlineUsers.map((users, index) => {
+                        return (
+                            <div key={index} className="chatter">
+                                <div className="friend-userpic-container">
+                                    <img
+                                        className="chat-userpic"
+                                        src={users.imageurl}
+                                    />
+                                    <h4 className="chatName">
+                                        {users.first} {users.last}
+                                    </h4>
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
         </div>
     );

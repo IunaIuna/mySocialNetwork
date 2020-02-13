@@ -49,16 +49,19 @@ export default function findPeople() {
                                 <div key={user.id} className="latestUsers">
                                     <div>
                                         <li className="liFriends">
-                                            <img
-                                                className="recentUser"
-                                                src={user.imageurl}
-                                            />
-                                            <br />
-                                            <center>
-                                                <a href={"../user/" + user.id}>
+                                            <a
+                                                className="linkToFriends"
+                                                href={"../user/" + user.id}
+                                            >
+                                                <img
+                                                    className="recentUser"
+                                                    src={user.imageurl}
+                                                />
+                                                <br />
+                                                <center>
                                                     {user.first} {user.last}
-                                                </a>
-                                            </center>
+                                                </center>
+                                            </a>
                                             <br />
                                             <br />
                                         </li>
@@ -69,11 +72,11 @@ export default function findPeople() {
                     </ul>
                 )}
                 <div>
-                    <h1>Latest users</h1>
                     <div className="">
                         <div className="boxAroundUl">
                             {recentUsers.length != 0 && (
                                 <ul className="ulStyle">
+                                    <h1>Latest users</h1>
                                     {recentUsers.map(recentUser => {
                                         return (
                                             <li

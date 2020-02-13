@@ -53,7 +53,7 @@ export default function Friends() {
                                     <br />
                                     <Link
                                         to={`/user/${friend.id}`}
-                                        className="friends"
+                                        className="linkToFriends"
                                     >
                                         {friend.first} {friend.last}
                                     </Link>

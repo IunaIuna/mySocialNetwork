@@ -46,7 +46,7 @@ export default class OtherProfile extends React.Component {
             <div>
                 {this.state.first} {this.state.last}
                 <br />
-                <img src={this.state.imageUrl} />
+                <img className="bigProfilePic" src={this.state.imageUrl} />
                 <p>{this.state.bio}</p>
                 <FriendButton otherUserId={this.state.id} />
             </div>

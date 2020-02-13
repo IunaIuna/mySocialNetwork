@@ -6,7 +6,7 @@ body {
 }
 
 #logo {
-    height: 100px;
+    height: 125px;
     width: auto;
     top: 40px;
 }
@@ -26,7 +26,7 @@ body {
     right: 40px; */
     border-radius: 50%;
     object-fit: cover;
-    border: rgba(255, 255, 255, 0.2) solid 5px;
+    border: rgba(255, 255, 255, 0.2) solid 8px;
 }
 
 .bigProfilePic {
@@ -39,7 +39,7 @@ body {
 }
 
 .uploader {
-    background-color: hotpink;
+    background-color: #e1c7c6;
 }
 
 ul {
@@ -82,28 +82,41 @@ ul {
     padding-left: 30px;
 }
 .chatter {
-    margin-bottom: 30px;
-    padding-left: 20px;
+    margin: 30px;
+    padding: 20px;
+    background-color: rgba(157, 129, 137, 0.2);
+    width: 500px;
+    border-radius: 40px;
+    padding-bottom: 40px;
+}
+
+.timestampChat {
+    color: ;
 }
 
 .chat-container {
     height: 500px;
-    width: 500px;
+    width: 700px;
     overflow-y: scroll;
-    border: white solid 5px;
     background-color: #ffe5d9;
-    color: dimgrey;
+    color: #5d4e6d;
 }
 
 .textarea {
     margin-left: 20px;
+    border-radius: 10px;
+}
+
+.message {
+    overflow-wrap: break-word;
 }
 
 .chat-userpic {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     object-fit: cover;
-    border: solid 2px;
+    border: solid white 2px;
+    border-radius: 20px;
 }
 
 .textarea {
@@ -130,7 +143,12 @@ ul {
     padding: 10px;
     border-radius: 10px;
     color: white;
-    font-size: 20px;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.nav-links .nav-link:hover {
+    color: #9d8189;
 }
 
 .user {
@@ -182,11 +200,34 @@ ul {
     font-size: 20px;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #9d8189;
+}
+
 .liFriends {
     margin: 20px;
 }
 
+.chatName {
+    color: #5d4e6d;
+    font-size: 15px;
+}
+
+.profile-card {
+    display: flex;
+}
+
+.bioText {
+    bottom: 0;
+}
+
 .colors {
+    color: #5d4e6d;
     color: #9d8189;
     color: #f7dad9;
     color: #e1c7c6;

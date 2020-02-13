@@ -1,4 +1,4 @@
-import { tenLastMessages, addSingleMessage } from "./actions";
+import { tenLastMessages, addSingleMessage, onlineUsers } from "./actions";
 import * as io from "socket.io-client";
 
 export let socket;
@@ -14,5 +14,10 @@ export const init = store => {
         socket.on("tenLastMessages", msgs =>
             store.dispatch(tenLastMessages(msgs.data))
         );
+
+        socket.on("onlineUsers", resp => {
+            store.dispatch(onlineUsers(resp));
+            console.log("onlineUser in socket.js", resp);
+        });
     }
 };

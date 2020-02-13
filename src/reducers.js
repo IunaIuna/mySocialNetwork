@@ -43,6 +43,12 @@ export default function reducer(state = {}, action) {
             ...state,
             chatMessages: state.chatMessages.concat([action.oneMsg])
         };
+    } else if (action.type == "ONLINE_USERS") {
+        console.log("ONLINE_USERS", action);
+        state = {
+            ...state,
+            onlineUsers: action.onlineusers
+        };
     }
     return state;
 }

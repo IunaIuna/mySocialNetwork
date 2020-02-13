@@ -169,3 +169,11 @@ exports.getLastTenChatMessages = function() {
             return rows.reverse();
         });
 };
+
+exports.infoForOnlineUsers = function(array) {
+    return db
+        .query(`SELECT * FROM users WHERE id = ANY($1)`, [array])
+        .then(({ rows }) => {
+            return rows;
+        });
+};
