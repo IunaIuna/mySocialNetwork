@@ -41,50 +41,83 @@ export default function findPeople() {
 
     return (
         <div>
-            <div>Are you looking for someone in particular?</div>
-            <input
-                onChange={onUserChange}
-                type="text"
-                placeholder="Enter name"
-            />
+            <div className="inputAreaFriendSearch">
+                {recentUsers.length == 0 && (
+                    <ul className="ulStyle">
+                        {users.map(user => {
+                            return (
+                                <div key={user.id} className="latestUsers">
+                                    <div>
+                                        <li className="liFriends">
+                                            <img
+                                                className="recentUser"
+                                                src={user.imageurl}
+                                            />
+                                            <br />
+                                            <center>
+                                                <a href={"../user/" + user.id}>
+                                                    {user.first} {user.last}
+                                                </a>
+                                            </center>
+                                            <br />
+                                            <br />
+                                        </li>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </ul>
+                )}
+                <div>
+                    <h1>Latest users</h1>
+                    <div className="">
+                        <div className="boxAroundUl">
+                            {recentUsers.length != 0 && (
+                                <ul className="ulStyle">
+                                    {recentUsers.map(recentUser => {
+                                        return (
+                                            <li
+                                                className="liFriends"
+                                                key={recentUser.id}
+                                            >
+                                                <img
+                                                    className="recentUser"
+                                                    src={recentUser.imageurl}
+                                                />
+                                                <br />
+                                                <center>
+                                                    <a
+                                                        href={
+                                                            "../user/" +
+                                                            recentUser.id
+                                                        }
+                                                    >
+                                                        {recentUser.first}{" "}
+                                                        {recentUser.last}
+                                                    </a>
+                                                </center>
+                                                <br />
+                                                <br />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+                </div>
 
-            {recentUsers.length != 0 && (
-                <ul className="ulStyle">
-                    {recentUsers.map(recentUser => {
-                        return (
-                            <li key={recentUser.id}>
-                                <img
-                                    className="recentUser"
-                                    src={recentUser.imageurl}
-                                />
-                                <br />
-                                {recentUser.first} {recentUser.last}
-                                <br />
-                                <br />
-                            </li>
-                        );
-                    })}
-                </ul>
-            )}
-
-            {recentUsers.length == 0 && (
-                <ul className="ulStyle">
-                    {users.map(user => {
-                        return (
-                            <li key={user.id}>
-                                <img
-                                    className="recentUser"
-                                    src={user.imageurl}
-                                />
-                                <br />
-                                {user.first} {user.last}
-                                <br />
-                                <br />
-                            </li>
-                        );
-                    })}
-                </ul>
-            )}
+                <div className="titleFriends1">
+                    Are you looking for someone in particular?
+                </div>
+                <br />
+                <input
+                    className="inputFriendSearch"
+                    onChange={onUserChange}
+                    type="text"
+                    placeholder="Enter name"
+                />
+            </div>
         </div>
     );
 }

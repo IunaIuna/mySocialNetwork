@@ -163,9 +163,9 @@ exports.insertChatMessages = function(sender_id, message) {
 exports.getLastTenChatMessages = function() {
     return db
         .query(
-            "SELECT first, last, imageUrl, sender_id, message FROM chatMessages JOIN users ON users.id = chatMessages.sender_id ORDER BY chatMessages.id DESC LIMIT 10"
+            "SELECT first, last, imageUrl, sender_id, message, created_at FROM chatMessages JOIN users ON users.id = chatMessages.sender_id ORDER BY chatMessages.id DESC LIMIT 10"
         )
         .then(({ rows }) => {
-            return rows;
+            return rows.reverse();
         });
 };

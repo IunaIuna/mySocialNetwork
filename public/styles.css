@@ -5,18 +5,28 @@ body {
     color: white;
 }
 
-#ape {
+#logo {
     height: 100px;
     width: auto;
     top: 40px;
 }
 
+#logout {
+    height: 40px;
+    width: auto;
+    top: 40px;
+    right: 20px;
+}
+
 .profilePic {
     height: 100px;
-    width: auto;
-    position: absolute;
+    width: 100px;
+    /* position: absolute;
     top: 40px;
-    right: 40px;
+    right: 40px; */
+    border-radius: 50%;
+    object-fit: cover;
+    border: rgba(255, 255, 255, 0.2) solid 5px;
 }
 
 .bigProfilePic {
@@ -32,23 +42,156 @@ body {
     background-color: hotpink;
 }
 
+ul {
+    margin-left: 50px;
+}
+
 .recentUser {
-    height: 100px;
-    width: auto;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 20px;
 }
 
 .ulStyle {
     list-style: none;
+    display: flex;
 }
 
-h1 {
+.boxAroundUl {
+    display: flex;
+}
+
+.title {
     font-family: "Sacramento", cursive;
     color: white;
+    font-size: 60px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.boxAroundChat {
+    width: 100%;
+}
+
+.chat {
+    display: flex;
+    justify-content: justify-content;
+    width: 100%;
+    padding-left: 30px;
+}
+.chatter {
+    margin-bottom: 30px;
+    padding-left: 20px;
 }
 
 .chat-container {
-    height: 300px;
+    height: 500px;
+    width: 500px;
     overflow-y: scroll;
-    border: radius 2px dimgrey;
-    background-color: grey;
+    border: white solid 5px;
+    background-color: #ffe5d9;
+    color: dimgrey;
+}
+
+.textarea {
+    margin-left: 20px;
+}
+
+.chat-userpic {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border: solid 2px;
+}
+
+.textarea {
+    height: 100px;
+    width: 300px;
+}
+
+.navbar {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: white solid 1px;
+    padding: 10px 10px 20px 10px;
+}
+
+.nav-separator {
+    flex-grow: 1;
+}
+.nav-links .nav-link {
+    margin: 20px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+.user {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.friendsAndWannabes {
+    height: 200px;
+    width: 180px;
+    object-fit: cover;
+}
+
+.boxAroundFriends {
+    display: flex;
+}
+
+.friend-card {
+    margin-left: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+.titleFriends {
+    margin-left: 50px;
+}
+
+.titleFriends1 {
+    font-size: 30px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.inputAreaFriendSearch {
+    margin-left: 100px;
+}
+
+.latestUsers {
+    display: flex;
+}
+
+.inputFriendSearch {
+    font-size: 20px;
+}
+
+.liFriends {
+    margin: 20px;
+}
+
+.colors {
+    color: #9d8189;
+    color: #f7dad9;
+    color: #e1c7c6;
+    color: #cc9c88;
+    color: #e3ad96;
+    color: #f9bea5;
+    color: #f9c3ad;
 }

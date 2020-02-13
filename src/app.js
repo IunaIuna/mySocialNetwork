@@ -1,8 +1,9 @@
 //MEMBER AREA: After the login
 import React from "react";
 import axiosCopy from "./axios";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Profile from "./profile";
+import ProfilePic from "./profilePic";
 import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
 import FindPeople from "./findPeople";
@@ -27,7 +28,6 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <img id="ape" src="/logo.png" alt="Logo" />
                 <BrowserRouter>
                     <div>
                         {this.state.uploaderIsVisible && (
@@ -42,6 +42,42 @@ export default class App extends React.Component {
                         )}
                     </div>
 
+                    <div className="navbar">
+                        <div className="nav-logo">
+                            <img id="logo" src="/logo.png" alt="Logo" />
+                        </div>
+
+                        <div className="nav-links">
+                            <Link to="/findpeople" className="nav-link">
+                                Find people
+                            </Link>
+
+                            <Link to="/friends" className="nav-link">
+                                Friends
+                            </Link>
+
+                            <Link to="/chat" className="nav-link">
+                                Chat
+                            </Link>
+                            <a className="nav-link" href="/logout">
+                                Logout
+                            </a>
+                        </div>
+
+                        <div>
+                            <ProfilePic
+                                className="profilePic"
+                                clickProfilePic={() => {
+                                    this.setState({
+                                        uploaderIsVisible: true
+                                    });
+                                }}
+                                imageUrl={this.state.imageUrl}
+                                first={this.state.first}
+                                last={this.state.last}
+                            />
+                        </div>
+                    </div>
                     <Route
                         path="/user/:id"
                         render={props => (

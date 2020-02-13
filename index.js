@@ -355,6 +355,11 @@ app.post("/search", (req, res) => {
     });
 });
 
+app.get("/logout", function(req, res) {
+    req.session = null;
+    res.redirect("/welcome");
+});
+
 // ////////////////////////////////////
 app.get("*", function(req, res) {
     if (!req.session.userId) {
@@ -369,8 +374,13 @@ server.listen(8080, function() {
     console.log("I'm listening on port 8080");
 });
 
+let onlineUsers = {};
+
 io.on("connection", function(socket) {
     console.log("io.on");
+
+    onlineUsers[socket.id] = socket.request.session.userId;
+
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
@@ -401,5 +411,9 @@ io.on("connection", function(socket) {
                 });
             });
         });
+    });
+
+    socket.on("disconnect", () => {
+        delete onlineUsers[socket.id];
     });
 });

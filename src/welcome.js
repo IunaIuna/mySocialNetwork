@@ -10,9 +10,9 @@ import Reset from "./reset";
 export default function Welcome() {
     return (
         <div>
-            <img id="ape" src="logo.png" />
-
-            <h1>Welcome</h1>
+            <div>
+                <h1 className="welcomeTitle">Real Fake Friends</h1>
+            </div>
             <HashRouter>
                 <Route exact path="/" component={Registration} />
                 <Route exact path="/login" component={Login} />

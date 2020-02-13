@@ -31,62 +31,41 @@ export function Chat() {
     };
 
     return (
-        <div className="chat">
-            <h1>Chat room</h1>
-            <div className="chat-container" ref={elemRef}>
-                {chatMessages &&
-                    chatMessages.map((msg, index) => {
-                        return (
-                            <div key={index} className="friend">
-                                <div className="friend-userpic-container">
-                                    <img
-                                        className="friend-userpic"
-                                        src={msg.imageurl}
-                                    />
+        <div id="boxAroundChat">
+            <center>
+                <div className="title">
+                    Talk with people about your work, passions & dreams
+                </div>
+            </center>
+            <div className="chat">
+                <div className="chat-container" ref={elemRef}>
+                    {chatMessages &&
+                        chatMessages.map((msg, index) => {
+                            return (
+                                <div key={index} className="chatter">
+                                    <div className="friend-userpic-container">
+                                        <img
+                                            className="chat-userpic"
+                                            src={msg.imageurl}
+                                        />
+                                        <h4>
+                                            {msg.first} {msg.last}
+                                        </h4>
+                                    </div>
+                                    <div className="message">{msg.message}</div>
+                                    <div>{msg.created_at}</div>
                                 </div>
-                                <h4>
-                                    {msg.first} {msg.last}
-                                </h4>
-                                <div className="message">{msg.message}</div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                </div>
+                <div id="textarea">
+                    <textarea
+                        className="textarea"
+                        placeholder="Add your message here"
+                        onKeyDown={keyCheck}
+                    ></textarea>
+                </div>
             </div>
-            <textarea
-                placeholder="Add your message here"
-                onKeyDown={keyCheck}
-            ></textarea>
         </div>
     );
-
-    // return (
-    //   <div className="chat">
-    //     <h1> Chat room! </h1>
-    //     <div className="chat-container" ref={elemRef}>
-    //     <h1>CHAT ROOM</h1>
-    //       <div className="chat-container">
-    //       {chatMessages &&
-    //         chatMessages.map((msg, index) => {
-    //           return (
-    //             <div key={index} className="friend">
-    //             <div className="friend-userpic-container">
-    //             <img
-    //             className="friend-userpic"
-    //             src={msg.imageurl}
-    //             />
-    //             </div>
-    //             <h4>
-    //             {msg.first} {msg.last}
-    //             </h4>
-    //             <div className="message">{msg.message}</div>
-    //             </div>
-    //           );
-    //         })}
-    //       </div>
-    //     <textarea
-    //     placeholder="Add your message here"
-    //     onKeyDown={keyCheck}
-    //     ></textarea>
-    //     </div>
-    // );
 }
