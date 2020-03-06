@@ -1,0 +1,284 @@
+body {
+    background: #f9bea5;
+    width: auto;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+}
+
+.welcomeTitle {
+    font-family: "Sacramento", cursive;
+    color: white;
+    font-size: 60px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+#logo {
+    height: 125px;
+    width: auto;
+    top: 40px;
+}
+
+#logout {
+    height: 40px;
+    width: auto;
+    top: 40px;
+    right: 20px;
+}
+
+.profilePic {
+    height: 100px;
+    width: 100px;
+    /* position: absolute;
+    top: 40px;
+    right: 40px; */
+    border-radius: 50%;
+    object-fit: cover;
+    border: rgba(255, 255, 255, 0.2) solid 8px;
+}
+
+.bigProfilePic {
+    height: 300px;
+    width: auto;
+}
+
+.float {
+    float: right;
+}
+
+.uploader {
+    background-color: #e1c7c6;
+}
+
+ul {
+    margin-left: 50px;
+}
+
+.recentUser {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.ulStyle {
+    list-style: none;
+    display: flex;
+}
+
+.boxAroundUl {
+    display: flex;
+}
+
+.title {
+    font-family: "Sacramento", cursive;
+    color: white;
+    font-size: 60px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.boxAroundChat {
+    width: 100%;
+}
+
+.chat {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 700px;
+    padding-left: 30px;
+}
+.chatter {
+    margin: 30px;
+    padding: 20px;
+    background-color: rgba(157, 129, 137, 0.2);
+    border-radius: 40px;
+    padding-bottom: 40px;
+    display: flex;
+    max-width: 100%;
+}
+
+.chatText {
+    margin-left: 20px;
+    margin-top: 8px;
+    margin-right: 10px;
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+.chatHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.chat-container {
+    height: 500px;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: #ffe5d9;
+    color: #5d4e6d;
+}
+
+.textarea {
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 100%;
+    height: 100px;
+    display: block;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.message {
+    /* overflow-wrap: break-word; */
+    word-break: break-all;
+}
+
+.chatAndOnline {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.chat-userpic {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+    border: solid white 2px;
+    border-radius: 20px;
+}
+
+#textarea {
+    width: 100%;
+}
+
+.navbar {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: white solid 1px;
+    padding: 10px 10px 20px 10px;
+}
+
+.nav-separator {
+    flex-grow: 1;
+}
+.nav-links .nav-link {
+    margin: 20px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.nav-links .nav-link:hover {
+    color: #9d8189;
+}
+
+.user {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.friendsAndWannabes {
+    height: 200px;
+    width: 180px;
+    object-fit: cover;
+}
+
+.boxAroundFriends {
+    display: flex;
+}
+
+.friend-card {
+    margin-left: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+.titleFriends {
+    margin-left: 50px;
+}
+
+.titleFriends1 {
+    font-size: 30px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.inputAreaFriendSearch {
+    margin-left: 100px;
+}
+
+.latestUsers {
+    display: flex;
+}
+
+.inputFriendSearch {
+    font-size: 20px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #9d8189;
+}
+
+.liFriends {
+    margin: 20px;
+}
+
+.chatName {
+    color: #5d4e6d;
+    font-weight: bold;
+}
+
+.profile-card {
+    display: flex;
+}
+
+.bioText {
+    bottom: 0;
+}
+
+.onlineUser-container {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-left: 30px;
+}
+
+.friend-userpic-container {
+    margin: 10px;
+}
+
+.colors {
+    color: #5d4e6d;
+    color: #9d8189;
+    color: #f7dad9;
+    color: #e1c7c6;
+    color: #cc9c88;
+    color: #e3ad96;
+    color: #f9bea5;
+    color: #f9c3ad;
+}
